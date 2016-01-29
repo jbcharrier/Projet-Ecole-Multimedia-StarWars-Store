@@ -1,3 +1,10 @@
-<div class="alert {{Session::get('alert')}}">
-    <p>{{Session::get('message')}}<a href="{{url('/')}}">{{trans('app.home')}}</a></p>
+<div class="alert">
+    <div class="alert-box {{Session::get('alert')}}">
+        <p>{{Session::get('cart-store')}}</p>
+    </div>
 </div>
+
+
+
+
+

@@ -69,7 +69,8 @@ class LoginController extends Controller
 
         ]);
 
-        return redirect('/login')->with(['message' => 'success']);
+        return redirect('/login')->with(['message' => 'Les informations ont été enregistrées',
+                                        'alert' => 'success']);
     }
 
 

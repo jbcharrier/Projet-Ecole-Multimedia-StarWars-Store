@@ -95,7 +95,8 @@ class CartController extends Controller
             'quantity' => $quant,
         ]);
 
-        return redirect('/')->with(['message' => 'success']);
+        return redirect('/')->with(['cart-store' => 'Le produit a été ajouté à votre panier !',
+                                    'alert'=> 'success']);
     }
 
     /**
@@ -142,7 +143,8 @@ class CartController extends Controller
     {
         $cart = Cart::find($id);
         $cart->delete();
-        return back()->with(['message' => "success"]);
+        return back()->with(['message' => 'Le produit a été retiré de votre panier',
+                            'alert' => 'success']);
     }
 
 
@@ -250,6 +252,7 @@ class CartController extends Controller
             'number_command' => '123456',
         ]);
 
-        return redirect('command')->with(['message' => 'success']);
+        return redirect('command')->with(['message' => 'Votre commande a bien été enregistrée.',
+                                            'alert' => 'success']);
     }
 }

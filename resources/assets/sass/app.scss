@@ -19,6 +19,23 @@ footer {
   }
 }
 
+/***** Mes classes *****/
+
+.border {
+  display: inline-block;
+  border: 1px solid #000;
+  margin: 25px 0;
+  padding: 25px 0;
+  width: 500px;
+  border-radius: 5px;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: 5px 25px;
+  background-color: #fff;
+}
+
 /***** Partials Navigation *****/
 
 #navigation {
@@ -44,6 +61,18 @@ footer {
         color: #fff !important;
         i {
           font-size: 30px;
+        }
+        .login {
+          color: #fff;
+          border: 2px solid #fff;
+          border-radius: 5px;
+          background-color: #6495ed;
+          padding: 5px 20px;
+        }
+        .login:hover {
+          color: #6495ed;
+          background-color: #fff;
+          border: 2px solid #6495ed;
         }
       }
     }
@@ -120,19 +149,11 @@ img {
 #main_product {
   text-align: center;
   padding: 0;
-  #product {
-    display: inline-block;
-    border: 1px solid #000;
-    margin: 25px 0;
-    padding: 25px 0;
-    width: 400px;
-    h3 {
-      margin: 0;
-    }
-    #select_product {
-      margin: 10px 0;
-      padding: 5px;
-    }
+  #product h3 {
+    margin: 0;
+  }
+  #select_product {
+    margin: 10px 0;
   }
   img {
     width: 500px;
@@ -219,10 +240,55 @@ img {
   }
   .form-submit {
     margin: 20px 0;
-    input {
-      width: 10%;
-      padding: 10px;
-    }
   }
 }
 
+/***** Login *****/
+
+#login {
+  #email,
+  #password {
+    margin: 30px 0 20px 0;
+    width: 50%;
+    border-radius: 5px;
+  }
+  #submit-login {
+    margin: 30px 0;
+  }
+  #user-register {
+    margin: 30px 0;
+  }
+}
+
+/*****Alert *****/
+
+
+.alert {
+  position: absolute;
+  background-color: rgba(89, 143, 188, 0.5);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding-top: 100px;
+  transition: all 1s;
+  .alert-box {
+    font-size: 24px;
+    position: relative;
+    top: 50%;
+    vertical-align: middle;
+    margin: 0 auto;
+    width: 40%;
+    height: 150px;
+    background-color: grey;
+    color: #fff;
+    border-radius: 5px;
+    vertical-align: middle;
+    padding: 30px;
+  }
+  .success {
+    border: 5px solid #2ca02c;
+  }
+  .error {
+    border: 5px solid #c9302c;
+  }
+}

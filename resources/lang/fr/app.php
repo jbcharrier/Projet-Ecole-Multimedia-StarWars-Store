@@ -6,14 +6,11 @@ return [
     'price' => 'Prix : ',
     'content' => 'Description du produit : ',
     'currency' => ' €',
-    'message'   => ' Votre message a bien été envoyé',
     'home'  => 'Accueil',
     'emailAddress'  => 'Votre adresse e-mail(*) : ',
     'pub_date'  =>'Publié le : ',
-    'alert' => ' Votre message a bien été envoyé',
-    'contactSuccess' => ' Votre message a bien été envoyé',
-    'password' => ' Votre mot de passe',
-    'remember' => ' Se souvenir de moi',
+    'password' => ' Votre mot de passe : ',
+    'remember' => ' Se souvenir de moi : ',
     'name'  => 'Nom du produit : ',
     'abstract'  => 'Résumé du produit',
     'slug' => 'Nom du slug',
@@ -30,4 +27,6 @@ return [
     'date_command' => 'Date de la commande : ',
     'command_unf' => 'Commandes non-finalisées',
     'date_select' =>'Date de sélection du produit',
+
+
 ];

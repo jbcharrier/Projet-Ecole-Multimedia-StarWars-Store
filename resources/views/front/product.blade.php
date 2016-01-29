@@ -17,7 +17,7 @@
                     {{trans('app.noTag')}}
                 @endforelse
             </p>
-            <div class="center" id="product">
+            <div class="center border" id="product">
                 <form method="POST" action="{{url('cart')}}">
                     {!!csrf_field()!!}
                     <h3>Pour commander ce produit : </h3>
@@ -31,7 +31,7 @@
                         </select>
                     </p>
                     <input type="hidden" name="product_id" value="{{$product->id}}">
-                    <input id='select_product' type="submit" value="Je sélectionne ce produit">
+                    <input class="btn" id='select_product' type="submit" value="Je sélectionne ce produit">
                 </form>
             </div>
         </div>

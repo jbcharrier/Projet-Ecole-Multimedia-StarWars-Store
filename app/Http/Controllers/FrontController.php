@@ -114,9 +114,9 @@ class FrontController extends Controller
             // pour info, le with=> Laravel met tout dans l'objet Session Laravel
             // je redirige avec les messages :
         return back()->with([
-            'message'=>trans('app.contactSuccess'),
-            'alert' =>  'success' // css pour les différentes alertes de nos messages
-        ]);
+            'message'=> 'Votre message a bien été envoyé !',
+            'alert' =>  'success']); // css pour les différentes alertes de nos messages
+
 
 //            méthode with sur la redirection est équivalent à en php natif :
 //            session_start();

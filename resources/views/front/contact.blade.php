@@ -1,11 +1,11 @@
+@if(Session::has('message'))
+    @include('front.partials.flash')
+@endif
+
 @extends('layouts.master')
 
 @section('content')
     <div class="container" id="contact">
-
-        @if(Session::has('message'))
-            @include('front.partials.flash')
-        @else
 
             <form method="POST" action="{{url('storeContact')}}">
                 {!!csrf_field()!!}
@@ -33,10 +33,10 @@
                         @if($errors->has('content')) <span class="error">{{$errors->first('content')}}</span> @endif
                     </div>
                     <div class="form-submit">
-                        <input type="submit" value="Envoyer">
+                        <input class="btn" type="submit" value="Envoyer">
                     </div>
                 </div>
             </form>
     </div>
-    @endif
+
 @stop

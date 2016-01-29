@@ -1,3 +1,7 @@
+@if(Session::has('cart-store'))
+    @include('front.partials.flash')
+@endif
+
 @extends('layouts.master')
 
 @section('content')
