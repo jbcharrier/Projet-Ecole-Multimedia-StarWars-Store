@@ -7,14 +7,11 @@
     <link rel="stylesheet" href="{{url('assets/css/knacss.min.css')}}" media="all">
     <link rel="stylesheet" href="{{url('assets/css/app.min.css')}}" media="all">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
 </head>
 <body>
-
 <header id="header" role="banner" class="line pam txtcenter">
     @include('partials.nav')
 </header>
-
 <div id="main" role="main" class="line pam">
     @yield('content')
 </div>
@@ -26,6 +23,5 @@
         <li class="pam inbl"><a href="/product">Dashboard</a></li>
     </ul>
 </footer>
-
 </body>
 </html>

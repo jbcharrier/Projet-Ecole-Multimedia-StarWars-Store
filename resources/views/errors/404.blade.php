@@ -2,9 +2,7 @@
 <html>
 <head>
     <title>Be right back.</title>
-
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
     <style>
         html, body {
             height: 100%;
@@ -40,7 +38,7 @@
 <body>
 <div class="container">
     <div class="content">
-        <div class="title">LE PRODUIT N'EXISTE PAS !!!</div>
+        <div class="title">NOPE ! 404 !</div>
     </div>
 </div>
 </body>

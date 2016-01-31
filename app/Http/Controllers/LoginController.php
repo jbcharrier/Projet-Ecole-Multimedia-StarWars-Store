@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use View;
 use Auth;
 use App\User;
@@ -14,14 +15,11 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        View::composer('partials.nav', function ($view) // pour injecter des données dans un template (ici le template layouts.master ou partials.nav). C'est un construct, ce sera toujours fait quelquesoit la page. On récupérera ensuite les datas en layout.master pour les insérer dans notre menu.
-        {
+        View::composer('partials.nav', function ($view) {
             $categories = Category::all();
-            $view->with(compact('categories')); // with passe un tableau associatif dans view.
+            $view->with(compact('categories'));
         });
     }
-
-
 
     public function login(Request $request)
     {
@@ -30,21 +28,21 @@ class LoginController extends Controller
             $this->validate($request, [
                 'email' => "required|email",
                 'password' => 'required',
-                'remember' => 'in:true'
             ]);
 
-            $remember = !empty($request->input('remember'))? true : false;
             $token = session('_token');
             $email = $request->input('email');
 
-            if(Auth::attempt(['email'=> $email, 'password'=>$request->input('password')], $remember)) {
+            if (Auth::attempt(['email' => $email, 'password' => $request->input('password')])) {
                 User::where('email', '=', $email)
                     ->update(['remember_token' => $token]);
+
                 return redirect()->intended('product');
             } else {
-                return back()->withInput($request->only('email', 'remember'))->with(['message' => trans('app.noAuth'), 'alert' => 'warning']);
+                return back()->withInput($request->only('email'))->with(['noauth' => 'Adresse e-mail et/ou mot de passe invalides.', 'alert' => 'error']);
             }
         } else {
+
             return view('auth.login');
         }
     }
@@ -66,18 +64,46 @@ class LoginController extends Controller
             'email' => $email,
             'password' => $password,
             'remember_token' => $token,
-
         ]);
 
-        return redirect('/login')->with(['message' => 'Les informations ont été enregistrées',
-                                        'alert' => 'success']);
+        return redirect('/login')->with(['storeuser' => 'Les informations ont été enregistrées ! Vous pouvez maintenant vous identifier.',
+            'alert' => 'success']);
     }
 
+    public function resetPassword()
+    {
 
-public function logout()
+        return view('auth.passwords');
+    }
+
+    public function registerPassword(Request $request)
+    {
+        $password = $request->get('password');
+        $npassword = $request->get('npassword');
+        $email = $request->get('email');
+        $user = User::where('email', '=', $email)->get();
+        if (!$user->isEmpty()) {
+            if ($password == $npassword) {
+                User::where('email', '=', $email)->update(['password' => bcrypt($password)]);
+
+                return redirect('/login')->with(['storepassword' => 'Votre nouveau mot de passe a bien été enregistré ! Vous pouvez maintenant vous identifier.',
+                    'alert' => 'success']);
+            } else {
+
+                return back()->with(['errorstorepassword' => 'Il y a une erreur dans les informations que vous avez entrées.',
+                    'alert' => 'error']);
+            }
+        } else {
+
+            return back()->with(['emailfailstorepassword' => 'Adresse e-mail non-reconnue !',
+                'alert' => 'error']);
+        }
+    }
+
+    public function logout()
     {
         Auth::logout();
+
         return redirect()->home();
-//        C'est un alias de route (on aurait pu faire redirect('\')
     }
 }

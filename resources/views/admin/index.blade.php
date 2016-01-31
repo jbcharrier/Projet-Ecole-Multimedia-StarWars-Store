@@ -2,23 +2,35 @@
 
 @section('content')
     <div class="container">
+        @if(Session::has('storeproduct'))
+            @include('front.partials.flash')
+        @endif
+        @if(Session::has('update'))
+            @include('front.partials.flash')
+        @endif
+        @if(Session::has('productdestroy'))
+            @include('front.partials.flash')
+        @endif
+        @if(Session::has('updateproduct'))
+            @include('front.partials.flash')
+        @endif
         <table>
-            <a href="{{url('/product/create')}}" ><input type="submit" value="Ajouter un produit" class="bouton" id="add"></a>
+            <a href="{{url('/product/create')}}"><input type="submit" value="Ajouter un produit" class="bouton"
+                                                        id="add"></a>
             <tr id="entete">
-                <th>status</th>
+                <th>Status</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th>date</th>
-                <th>category</th>
-                <th>tags</th>
-                <th>action</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Tags</th>
+                <th>Action</th>
             </tr>
-
-
             @forelse($products as $product)
                 <tr id="tableau">
-                    <th><a class="btn btn-{{$product->status}}" href="{{url('product', ['status', $product->id])}}">{{$product->status}}</a></th>
+                    <th><a class="btn btn-{{$product->status}}"
+                           href="{{url('product', ['status', $product->id])}}">{{$product->status}}</a></th>
                     <th><a href="{{url('product',[$product->id, 'edit'])}}">{{$product->name}}</a></th>
                     <th>{{$product->price}}</th>
                     <th>{{$product->quantity}}</th>

@@ -39,12 +39,6 @@ class UserTableSeeder extends Seeder
                     'password'  => Hash::make('yini'),
                     'role'      => 'visitor'
                 ],
-                [
-                    'name'      => 'jb',
-                    'email'     => 'jb@jb.fr',
-                    'password'  => Hash::make('jb'),
-                    'role'      => 'visitor'
-                ],
             ]
         );
     }

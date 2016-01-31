@@ -28,9 +28,6 @@
         @empty
             <p>No product</p>
         @endforelse
-
         {!! $products->links()!!}
-        {{--création de la pagination (//on utilise !! !! pour ne pas avoir d'html entities.--}}
     </div>
 @stop
-

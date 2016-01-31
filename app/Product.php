@@ -52,8 +52,6 @@ class Product extends Model
         return $this->hasMany('App\Commmand_unf');
     }
 
-
-
     public function getNameAttribute($value)
     {
         return ucfirst($value);

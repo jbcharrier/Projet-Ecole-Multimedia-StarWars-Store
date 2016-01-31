@@ -1,11 +1,13 @@
-@if(Session::has('cart-store'))
-    @include('front.partials.flash')
-@endif
-
 @extends('layouts.master')
 
 @section('content')
     <div class="container">
+        @if(Session::has('cart-store'))
+            @include('front.partials.flash')
+        @endif
+        @if(Session::has('validcommand'))
+            @include('front.partials.flash')
+        @endif
         @forelse($products as $product)
             <div class="product bfc">
                 @if($pict=$product->picture)
@@ -32,9 +34,7 @@
         @empty
             <p>No product</p>
         @endforelse
-
         {!! $products->links()!!}
-        {{--création de la pagination (//on utilise !! !! pour ne pas avoir d'html entities.--}}
     </div>
 @stop
 

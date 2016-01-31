@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\History;
+use Illuminate\Support\Facades\Auth;
 use View;
 use App\Cart;
 use App\Product;
@@ -16,25 +17,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-/**
- * @property  Cart
- */
+
 class CartController extends Controller
 {
     public function __construct()
     {
-        View::composer('partials.nav', function ($view) // pour injecter des données dans un template (ici le template layouts.master ou partials.nav). C'est un construct, ce sera toujours fait quelquesoit la page. On récupérera ensuite les datas en layout.master pour les insérer dans notre menu.
-        {
+        View::composer('partials.nav', function ($view) {
             $categories = Category::all();
-            $view->with(compact('categories')); // with passe un tableau associatif dans view.
+            $view->with(compact('categories'));
         });
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $token_session = session('_token');
@@ -45,9 +38,7 @@ class CartController extends Controller
             $prices[] = $cart->price;
             $quantities[] = $cart->quantity;
         }
-
         $total = 0;
-
         for ($i = 0; $i < count($prices); $i++) {
             $total += $prices[$i] * $quantities[$i];
         }
@@ -55,25 +46,13 @@ class CartController extends Controller
         return view('front.cart', compact('carts', 'total'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-
+        //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
         $token = $request->get('_token');
         $quant = $request->get('quantity');
         $product_id = $request->get('product_id');
@@ -96,63 +75,36 @@ class CartController extends Controller
         ]);
 
         return redirect('/')->with(['cart-store' => 'Le produit a été ajouté à votre panier !',
-                                    'alert'=> 'success']);
+            'alert' => 'success']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $cart = Cart::find($id);
         $cart->delete();
-        return back()->with(['message' => 'Le produit a été retiré de votre panier',
-                            'alert' => 'success']);
+        return back()->with(['cart-delete' => 'Le produit a été retiré de votre panier',
+            'alert' => 'success']);
     }
-
 
     public function showCommand()
     {
-
         $token_session = session('_token');
-        $user_id = session('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $user_id = Auth::user()->id;
         DB::table('carts')
             ->where('token', '=', $token_session)
             ->update(['user_id' => "$user_id"]);
@@ -165,14 +117,11 @@ class CartController extends Controller
         $prices = array();
         $quantities = array();
         foreach ($carts as $cart) {
-
             $prices[] = $cart->price;
             $quantities[] = $cart->quantity;
             $cart->user_id = $user_id;
         }
-
         $total = 0;
-
         for ($i = 0; $i < count($prices); $i++) {
             $total += $prices[$i] * $quantities[$i];
         }
@@ -180,13 +129,11 @@ class CartController extends Controller
         return view('front.command', compact('carts', 'total'));
     }
 
-
     public function validCommand()
     {
-        $user_id = session('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $user_id = Auth::user()->id;
         $customer_id = Customer::where('user_id', '=', $user_id)->value('id');
         $token = session('_token');
-
 
         if (empty($customer_id)) {
             return view('front.form_customer');
@@ -198,18 +145,16 @@ class CartController extends Controller
 
             $history_id = $history->id;
             $carts = Cart::where('user_id', '=', $user_id)->get();
-            foreach ($carts as $cart){
+            foreach ($carts as $cart) {
                 History_detail::create([
                     'history_id' => $history_id,
                     'product_id' => $cart->product_id,
                     'quantity' => $cart->quantity
                 ]);
 
-
                 $number_products_commanded = DB::table('customers')
-                                                ->where('id', '=', $customer_id)
-                                                ->value('number_products_commanded');
-
+                    ->where('id', '=', $customer_id)
+                    ->value('number_products_commanded');
 
                 $number_products_commanded += $cart->quantity;
 
@@ -220,30 +165,28 @@ class CartController extends Controller
                 $cart->delete();
             }
 
-            $total_price=0;
+            $total_price = 0;
             $history_details = History_detail::where('history_id', '=', $history_id)->get();
-            foreach($history_details as $history_detail)
-            {
+            foreach ($history_details as $history_detail) {
                 $quantity = $history_detail->quantity;
                 $price = $history_detail->product->price;
-                $total_price += ($quantity)*($price);
+                $total_price += ($quantity) * ($price);
             }
 
             DB::table('histories')
                 ->where('id', '=', $history_id)
-                ->update(['total_price'=> $total_price]);
+                ->update(['total_price' => $total_price]);
 
-
-            return redirect('/')->with(['message' => "success"]);
+            return redirect('/')->with(['validcommand' => "Votre commande a bien été enregistrée ! Nous vous en remercions.",
+                'alert' => 'success']);
         }
     }
-
 
     public function storeCustomer(Request $request)
     {
         $address = $request->get('address');
         $cardnb = $request->get('cardnb');
-        $user_id = session('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $user_id = Auth::user()->id;
 
         Customer::create([
             'user_id' => $user_id,
@@ -252,7 +195,7 @@ class CartController extends Controller
             'number_command' => '123456',
         ]);
 
-        return redirect('command')->with(['message' => 'Votre commande a bien été enregistrée.',
-                                            'alert' => 'success']);
+        return redirect('command')->with(['createcustomer' => 'Les informations ont bien été enregistrées ! Vous pouvez maintenant valider votre commande.',
+            'alert' => 'success']);
     }
 }

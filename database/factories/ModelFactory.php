@@ -13,17 +13,6 @@ use Carbon\Carbon;
 |
 */
 
-//$factory->define(App\User::class, function (Faker\Generator $faker) {
-//    return [
-//        'name' => $faker->name,
-//        'email' => $faker->email,
-//        'password' => bcrypt(str_random(10)),
-//        'remember_token' => str_random(10),
-//    ];
-//});
-
-//factory pour insérer des données dans la table Products (cela passera bien sûr par l'entité Product)
-
 
 $factory->define(App\Product::class, function (Faker\Generator $faker) {
     $title=$faker->name;
