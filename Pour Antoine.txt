@@ -1,0 +1,20 @@
+Bonjour Antoine,
+
+Quelques pr�cisions sur mon travail :
+
+- J'ai mis en place la possibilit� � l'internaute de s'enregistrer en tant que User.
+- Un nouveau User devra d'abord s'enregister comme customer avant de pouvoir finaliser sa commande.
+- Possibilit� de se recr�er un mot de passe (je ne suis pas pass� par le PasswordController car il �tait d�j� dropp�. En terme de s�curit�, �a aurait �t� mieux...).
+
+- J'ai cr�� une table 'carts' pour g�rer toutes les s�lections de produits. L'icone du panier s'affiche d�s qu'un produit est mis au panier.
+- Un panier non-finalis� sera enregistr� dans la table 'command-unfs' (pour permettre l'affichage des paniers abandonn�s).
+
+- J'ai cr�� une table 'Histories' et 'History-details' pour pouvoir afficher simplement l'historique des commandes avec le d�tail des produits.
+
+- Un customer peut afficher son historique de commandes.
+
+- L'administrator est : tony@tony.fr / Tony (avec un 'T' Maj.). Un exemple de visitor : romain@romain.fr / Romain
+
+- Le fichier 'install.sh' appelle le fichier 'db_starwars.sql' pour la cr�ation des tables et des donn�es.
+
+Merci, Jean-Baptiste
