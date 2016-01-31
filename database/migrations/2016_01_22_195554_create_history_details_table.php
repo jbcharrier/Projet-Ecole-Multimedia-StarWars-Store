@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateHistoryDetailsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('history_details', function (Blueprint $table) {
@@ -23,11 +18,6 @@ class CreateHistoryDetailsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::drop('history_details');

@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCommandUnfsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('command_unfs', function (Blueprint $table) {
@@ -20,7 +15,7 @@ class CreateCommandUnfsTable extends Migration
             $table->string('token');
             $table->decimal('price', 7,2);
             $table->smallInteger('quantity');
-            $table->timestamp('command_at'); // datetime
+            $table->timestamp('command_at');
             $table->enum('status', ['finalized', 'unfinalized'])->default('unfinalized');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
@@ -29,11 +24,6 @@ class CreateCommandUnfsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::drop('carts');

@@ -4,17 +4,11 @@ use Illuminate\Database\Seeder;
 
 class CategoryTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('categories')->insert(
 
             [
-
                 [
                     'title'      => 'Lazers',
                     'slug'       => 'lazers',
@@ -23,7 +17,6 @@ class CategoryTableSeeder extends Seeder
                     'title'      => 'Casques',
                     'slug'       => 'casques',
                 ],
-
             ]
         );
     }

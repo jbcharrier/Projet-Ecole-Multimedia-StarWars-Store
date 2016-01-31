@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCartsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
@@ -19,7 +14,7 @@ class CreateCartsTable extends Migration
             $table->string('token');
             $table->decimal('price', 7,2);
             $table->smallInteger('quantity');
-            $table->timestamp('command at'); // datetime
+            $table->timestamp('command at');
             $table->enum('status', ['finalized', 'unfinalized'])->default('unfinalized');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
@@ -27,11 +22,6 @@ class CreateCartsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::drop('carts');

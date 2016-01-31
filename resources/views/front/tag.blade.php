@@ -26,7 +26,7 @@
                 <p class="pub_date">{{trans('app.pub_date')}}{{$product->published_at->format('d-m-Y à H:i:s')}}</p>
             </div>
         @empty
-            <p>No product</p>
+            <h5>Aucun produit disponible</h5>
         @endforelse
         {!! $products->links()!!}
     </div>

@@ -44,7 +44,7 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), array(
             'name' => "required",
-            'price' => "required|integer",
+            'price' => "required",
             'thumbnail' => 'image|max:3000'
         ));
 
@@ -54,6 +54,9 @@ class ProductController extends Controller
         }
 
         $product = Product::create($request->all());
+        $product->slug = str_slug($product->name, "-");
+        $product->save();
+
         if (!empty($request->input('tags')))
             $product->tags()->attach($request->input('tags'));
 
